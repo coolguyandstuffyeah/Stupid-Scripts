@@ -7,5 +7,5 @@ local Code = HttpService:GetAsync("https://raw.githubusercontent.com/coolguyands
 local Player = "DISPLAY NAME HERE"
 local Run = loadstring('local Plr = "' .. Player .. '"\n' .. Code)
 Run()
-
+```
 `git status`
