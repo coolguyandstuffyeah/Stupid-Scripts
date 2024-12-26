@@ -1,4 +1,4 @@
-# Stupid-Scripts
+# Stupid Scripts
 This is a roblox script thing that has really funny items for troll guis and stuff.
 
 Heres the code to run it. (ONLY WORKS ON SERVER SCRIPTS)
@@ -7,3 +7,5 @@ local Code = HttpService:GetAsync("https://raw.githubusercontent.com/coolguyands
 local Player = "DISPLAY NAME HERE"
 local Run = loadstring('local Plr = "' .. Player .. '"\n' .. Code)
 Run()
+
+`git status`
