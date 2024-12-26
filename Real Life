@@ -1,0 +1,239 @@
+	for _, Player in game.Players:GetChildren() do
+
+		if typeof(Plr) == "Instance" then
+
+			if string.find(string.lower(Player.Character.Humanoid.DisplayName),string.lower(Plr.Name)) then
+
+				Plr = Player
+
+			end
+
+		else
+
+			if string.find(string.lower(Player.Character.Humanoid.DisplayName),string.lower(Plr)) then
+
+				Plr = Player
+
+			end
+
+		end
+
+	end
+
+	-- Varibles
+
+	local Oxygen = 100
+	local Eyesight = 100
+	local HeartRate = 200
+
+	-- Settings
+
+	local Settings = {
+
+
+
+	}
+
+	-- Functions
+
+	local function Sound(Id,Parent)
+
+		local Snd = Instance.new("Sound",Parent)
+		Snd.SoundId = "rbxassetid://" .. Id
+		Snd:Play()
+		Snd.Ended:Connect(function()
+
+			wait(1)
+			Snd:Destroy()
+
+		end)
+
+	end
+
+	-- Gui
+
+	local RealLife = Instance.new('ScreenGui', Plr.PlayerGui)
+	RealLife.DisplayOrder = 1999999999
+	RealLife.IgnoreGuiInset = true
+	RealLife.Name = 'RealLife'
+
+	local Breathe = Instance.new('TextButton')
+	Breathe.Font = Enum.Font.Gotham
+	Breathe.Name = 'Breathe'
+	Breathe.Parent = RealLife
+	Breathe.Position = UDim2.new(0.005663433577865362,0,0.8896321058273315,0)
+	Breathe.Size = UDim2.new(0.10000000149011612,0,0.10000000149011612,0)
+	Breathe.Style = Enum.ButtonStyle.RobloxButton
+	Breathe.Text = 'Breathe'
+	Breathe.TextColor3 = Color3.new(1, 1, 1)
+	Breathe.TextScaled = true
+	Breathe.TextWrapped = true
+
+	local BreatheBar = Instance.new('Frame')
+	BreatheBar.BackgroundColor3 = Color3.new(1, 1, 1)
+	BreatheBar.Name = 'BreatheBar'
+	BreatheBar.Parent = RealLife
+	BreatheBar.Position = UDim2.new(0.1116504818201065,0,0.9163879752159119,0)
+	BreatheBar.Size = UDim2.new(0.18252427875995636,0,0.044816046953201294,0)
+
+	local UICorner = Instance.new('UICorner')
+	UICorner.Parent = BreatheBar
+
+	local Blink = Instance.new('TextButton')
+	Blink.Font = Enum.Font.Gotham
+	Blink.Name = 'Blink'
+	Blink.Parent = RealLife
+	Blink.Position = UDim2.new(0.005663433577865362,0,0.7792642116546631,0)
+	Blink.Size = UDim2.new(0.10000000149011612,0,0.10000000149011612,0)
+	Blink.Style = Enum.ButtonStyle.RobloxButton
+	Blink.Text = 'Blink'
+	Blink.TextColor3 = Color3.new(1, 1, 1)
+	Blink.TextScaled = true
+	Blink.TextWrapped = true
+
+	local BlinkBar = Instance.new('Frame')
+	BlinkBar.BackgroundColor3 = Color3.new(1, 1, 1)
+	BlinkBar.Name = 'BlinkBar'
+	BlinkBar.Parent = RealLife
+	BlinkBar.Position = UDim2.new(0.1116504818201065,0,0.8060200810432434,0)
+	BlinkBar.Size = UDim2.new(0.18252427875995636,0,0.044816046953201294,0)
+
+	local UICorner = Instance.new('UICorner')
+	UICorner.Parent = BlinkBar
+
+	local Monitor = Instance.new('Frame')
+	Monitor.Name = 'Monitor'
+	Monitor.Parent = RealLife
+	Monitor.Position = UDim2.new(0.00800000037997961,0,0.6419699192047119,0)
+	Monitor.Size = UDim2.new(0.2861747741699219,0,0.11806026101112366,0)
+	Monitor.Style = Enum.FrameStyle.RobloxRound
+
+	local Heart = Instance.new('ImageButton')
+	Heart.BackgroundTransparency = 1
+	Heart.Image = "rbxassetid://7123299346"
+	Heart.Name = 'Heart'
+	Heart.Parent = Monitor
+	Heart.Position = UDim2.new(0.009999999776482582,0,0.10499999672174454,0)
+	Heart.Size = UDim2.new(0.13488948345184326,0,0.7733712196350098,0)
+
+	local Square = Instance.new('UIAspectRatioConstraint')
+	Square.Name = 'Square'
+	Square.Parent = Heart
+
+	local Line = Instance.new('Frame')
+	Line.BackgroundColor3 = Color3.new(0.0941177, 0.635294, 0.309804)
+	Line.Name = 'Line'
+	Line.Parent = Monitor
+	Line.Position = UDim2.new(0.203889399766922,0,0.48052796721458435,0)
+	Line.Size = UDim2.new(0.7702192664146423,0,0.039435744285583496,0)
+
+	local Beat = Instance.new('Frame')
+	Beat.BackgroundColor3 = Color3.new(0.0941177, 0.635294, 0.309804)
+	Beat.Name = 'Beat'
+	Beat.Parent = Monitor
+	Beat.Position = UDim2.new(0.20499999821186066,0,0.3149999976158142,0)
+	Beat.Size = UDim2.new(0.004999999888241291,0,0.4000000059604645,0)
+	Beat.Visible = false
+
+	local Notice = Instance.new('TextLabel')
+	Notice.BackgroundColor3 = Color3.new(1, 1, 1)
+	Notice.BackgroundTransparency = 1
+	Notice.Font = Enum.Font.Gotham
+	Notice.Name = 'Notice'
+	Notice.Parent = Monitor
+	Notice.Position = UDim2.new(0,0,-0.6,0)
+	Notice.Size = UDim2.new(1,0,0.4,0)
+	Notice.Text = 'Click the heart to beat.'
+	Notice.TextColor3 = Color3.new(1, 1, 1)
+	Notice.TextScaled = true
+
+	local Blind = Instance.new("Frame",RealLife)
+
+	Blind.Name = "Blind"
+	Blind.Size = UDim2.new(1,0,1,0)
+	Blind.Transparency = 1
+	Blind.BackgroundColor3 = Color3.new(0,0,0)
+
+	Breathe.MouseButton1Click:Connect(function()
+
+		Sound("1025003145",Plr.Character.Torso)
+		Oxygen += 20
+		if Oxygen > 100 then
+
+			Oxygen = 100
+
+		end
+
+	end)
+
+	Blink.MouseButton1Click:Connect(function()
+
+		Sound("9119990452",Plr.Character.Torso)
+		Eyesight = 100
+
+	end)
+
+	Heart.MouseButton1Click:Connect(function()
+
+		if HeartRate < 150 then
+
+			HeartRate = 200
+			Sound("9116795681",Plr.Character.Torso)
+			local Alive = Beat:Clone()
+			Alive.Parent = Monitor
+			Alive.Visible = true
+			game.TweenService:Create(Heart,TweenInfo.new(0.3,Enum.EasingStyle.Sine,Enum.EasingDirection.Out,0,true),{Size = Heart.Size + UDim2.new(0.1, 0,0.1, 0)}):Play()
+			game.TweenService:Create(Heart,TweenInfo.new(0.3,Enum.EasingStyle.Sine,Enum.EasingDirection.Out,0,true),{Position = Heart.Position - UDim2.new(0.01, 0,0.04, 0)}):Play()
+			game.TweenService:Create(Alive,TweenInfo.new(5,Enum.EasingStyle.Linear),{Position = UDim2.new(0.97, 0,0.315, 0)}):Play()
+			wait(5)
+			Alive:Destroy()
+
+		else
+
+			game.Chat:Chat(Plr.Character.Head,"*Has a heart attack from beating heart too much*",Enum.ChatColor.White)
+			Plr.Character.Humanoid.BreakJointsOnDeath = false
+			Plr.Character.Humanoid.Health = 0
+		end
+
+	end)
+
+	local Beep = Instance.new("Sound",Plr.PlayerGui)
+
+	Beep.SoundId = "rbxassetid://147472964"
+	Beep.Looped = true
+	Beep:Play()
+
+	while Plr.Character.Humanoid.Health ~= 0 do
+
+		wait(0.01)
+		Oxygen -= 0.5
+		BreatheBar.Size = UDim2.new(Oxygen / 100 * 0.183,0,0.044816046953201294,0)
+		BreatheBar.BackgroundColor3 = Color3.new(1, 0, 0):Lerp(Color3.new(1, 1, 1),Oxygen / 100)
+		if Oxygen <= 0 then
+			Plr.Character.Humanoid.BreakJointsOnDeath = false
+			Plr.Character.Humanoid.Health = 0
+			game.Chat:Chat(Plr.Character.Head,"*Dies from not breathing*",Enum.ChatColor.White)
+		end
+		if Eyesight > 0 then
+			Eyesight -= 0.8
+		end
+		BlinkBar.Size = UDim2.new(Eyesight / 100 * 0.183,0,0.044816046953201294,0)
+		BlinkBar.BackgroundColor3 = Color3.new(0, 0, 0):Lerp(Color3.new(1, 1, 1),Eyesight / 100)
+		Blind.Transparency = (Eyesight / 100)
+		HeartRate -= 3
+		BreatheBar.Size = UDim2.new(Oxygen / 100 * 0.183,0,0.044816046953201294,0)
+		BreatheBar.BackgroundColor3 = Color3.new(1, 0, 0):Lerp(Color3.new(1, 1, 1),Oxygen / 100)
+		if HeartRate <= 120 then
+			Beep.Volume = 1
+		else
+			Beep.Volume = 0
+		end
+		if HeartRate <= 0 then
+			game.Chat:Chat(Plr.Character.Head,"*Has a heart stop",Enum.ChatColor.White)
+			Plr.Character.Humanoid.BreakJointsOnDeath = false
+			Plr.Character.Humanoid.Health = 0
+		end
+
+	end
+
+	RealLife:Destroy()
