@@ -6,4 +6,4 @@ Heres the code to run it. (ONLY WORKS ON SERVER SCRIPTS)
 local Code = HttpService:GetAsync("https://raw.githubusercontent.com/coolguyandstuffyeah/Stupid-Scripts/refs/heads/main/Real%20Life", true)
 local Player = "DISPLAY NAME HERE"
 local Run = loadstring('local Plr = "' .. Player .. '"\n' .. Code)
-Run()```
+Run()
