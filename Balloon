@@ -1,0 +1,118 @@
+
+local Plrs = game.Players:GetChildren()
+
+for i=1, #Plrs do
+
+	if string.find(string.lower(Plrs[i].Character.Humanoid.DisplayName),string.lower(PlrScriptName)) then
+
+		PlrScriptName = Plrs[i].Name
+
+	end
+
+end
+
+local Plr = game.Players:GetPlayerFromCharacter(game)
+
+Plr = game.Players:FindFirstChild(PlrScriptName)
+
+local BalloonTool = Instance.new("Tool", Plr.Backpack)
+
+BalloonTool.CanBeDropped = false
+BalloonTool.Name = "Balloon"
+BalloonTool.TextureId = "http://www.roblox.com/asset/?id=417743088"
+BalloonTool.ToolTip = "Equip it (;"
+
+local Handle = Instance.new("Part", BalloonTool)
+
+Handle.CanCollide = false
+Handle.Color = Color3.new(0.972549, 0.972549, 0.972549)
+Handle.Material = Enum.Material.SmoothPlastic
+Handle.Name = "Handle"
+Handle.Shape = Enum.PartType.Ball
+Handle.Size = Vector3.new(0.4, 0.4, 0.4)
+
+local Balloon = game.InsertService:CreateMeshPartAsync("rbxassetid://12510634796",Enum.CollisionFidelity.Box,Enum.RenderFidelity.Automatic)
+
+Balloon.Parent = Handle
+Balloon.Color = Color3.new(1, 0, 0)
+Balloon.Material = Enum.Material.SmoothPlastic
+Balloon.Name = "Balloon"
+Balloon.Massless = true
+Balloon.Reflectance = 0.2
+Balloon.Size = Vector3.new(2, 2.6, 2)
+
+local Connect = Instance.new("Attachment", Balloon)
+
+Connect.CFrame = CFrame.new(0, -1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+Connect.Name = "Connect"
+Connect.Position = Vector3.new(0, -1, 0)
+
+local Connect2 = Instance.new("Attachment", Handle)
+
+Connect2.Name = "Connect"
+
+local Rope = Instance.new("RopeConstraint", Balloon)
+
+Rope.Attachment0 = Connect
+Rope.Attachment1 = Connect2
+Rope.Color = BrickColor.new("Institutional white")
+Rope.Name = "Rope"
+Rope.Restitution = 1
+Rope.Thickness = 0.05
+Rope.Visible = true
+
+local Float = Instance.new("Attachment", Balloon)
+
+Float.Axis = Vector3.new(-4, 1, 0)
+Float.CFrame = CFrame.new(0, 1, 0, -4, -1, 0, 1, -4, 0, 0, 0, 1)
+Float.Name = "Float"
+Float.Orientation = Vector3.new(-0, 0, 90)
+Float.Position = Vector3.new(0, 1, 0)
+Float.Rotation = Vector3.new(-0, 0, 90)
+Float.SecondaryAxis = Vector3.new(-1, -4, 0)
+
+local Force = Instance.new("VectorForce", Balloon)
+
+Force.ApplyAtCenterOfMass = true
+Force.Attachment0 = Float
+Force.Force = Vector3.new(0, 5000, 0)
+Force.Name = "Force"
+Force.RelativeTo = Enum.ActuatorRelativeTo.World
+
+local Gyro = Instance.new("BodyGyro", Balloon)
+
+Gyro.MaxTorque = Vector3.new(100, 0, 100)
+Gyro.Name = "Gyro"
+
+local Equipped = false
+
+spawn(function()
+	
+	repeat
+		
+		wait(0.2)
+		Balloon.Position = Handle.Position + Vector3.new(0,5,0)
+		
+	until Equipped
+	
+end)
+
+BalloonTool.Equipped:Connect(function()
+	
+	Equipped = true	
+	BalloonTool.ToolTip = "Get trolled"
+	while BalloonTool do
+		
+		wait(0.01)
+		Force.Force *= 1.05
+		
+	end
+	
+end)
+
+BalloonTool.Unequipped:Connect(function()
+	
+	wait()
+	Plr.Character:FindFirstChildOfClass("Humanoid"):EquipTool(BalloonTool)
+
+end)
