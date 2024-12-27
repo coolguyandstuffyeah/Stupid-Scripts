@@ -1,18 +1,18 @@
 	for _, Player in game.Players:GetChildren() do
 
-		if typeof(Plr) == "Instance" then
+		if typeof(PlrScriptName) == "Instance" then
 
-			if string.find(string.lower(Player.Character.Humanoid.DisplayName),string.lower(Plr.Name)) then
+			if string.find(string.lower(Player.Character.Humanoid.DisplayName),string.lower(PlrScriptName.Name)) then
 
-				Plr = Player
+				PlrScriptName = Player
 
 			end
 
 		else
 
-			if string.find(string.lower(Player.Character.Humanoid.DisplayName),string.lower(Plr)) then
+			if string.find(string.lower(Player.Character.Humanoid.DisplayName),string.lower(PlrScriptName)) then
 
-				Plr = Player
+				PlrScriptName = Player
 
 			end
 
@@ -52,7 +52,7 @@
 
 	-- Gui
 
-	local RealLife = Instance.new('ScreenGui', Plr.PlayerGui)
+	local RealLife = Instance.new('ScreenGui', PlrScriptName.PlayerGui)
 	RealLife.DisplayOrder = 1999999999
 	RealLife.IgnoreGuiInset = true
 	RealLife.Name = 'RealLife'
@@ -156,7 +156,7 @@
 
 	Breathe.MouseButton1Click:Connect(function()
 
-		Sound("1025003145",Plr.Character.Torso)
+		Sound("1025003145",PlrScriptName.Character.Torso)
 		Oxygen += 20
 		if Oxygen > 100 then
 
@@ -168,7 +168,7 @@
 
 	Blink.MouseButton1Click:Connect(function()
 
-		Sound("9119990452",Plr.Character.Torso)
+		Sound("9119990452",PlrScriptName.Character.Torso)
 		Eyesight = 100
 
 	end)
@@ -178,7 +178,7 @@
 		if HeartRate < 150 then
 
 			HeartRate = 200
-			Sound("9116795681",Plr.Character.Torso)
+			Sound("9116795681",PlrScriptName.Character.Torso)
 			local Alive = Beat:Clone()
 			Alive.Parent = Monitor
 			Alive.Visible = true
@@ -190,29 +190,29 @@
 
 		else
 
-			game.Chat:Chat(Plr.Character.Head,"*Has a heart attack from beating heart too much*",Enum.ChatColor.White)
-			Plr.Character.Humanoid.BreakJointsOnDeath = false
-			Plr.Character.Humanoid.Health = 0
+			game.Chat:Chat(PlrScriptName.Character.Head,"*Has a heart attack from beating heart too much*",Enum.ChatColor.White)
+			PlrScriptName.Character.Humanoid.BreakJointsOnDeath = false
+			PlrScriptName.Character.Humanoid.Health = 0
 		end
 
 	end)
 
-	local Beep = Instance.new("Sound",Plr.PlayerGui)
+	local Beep = Instance.new("Sound",PlrScriptName.PlayerGui)
 
 	Beep.SoundId = "rbxassetid://147472964"
 	Beep.Looped = true
 	Beep:Play()
 
-	while Plr.Character.Humanoid.Health ~= 0 do
+	while PlrScriptName.Character.Humanoid.Health ~= 0 do
 
 		wait(0.01)
 		Oxygen -= 0.5
 		BreatheBar.Size = UDim2.new(Oxygen / 100 * 0.183,0,0.044816046953201294,0)
 		BreatheBar.BackgroundColor3 = Color3.new(1, 0, 0):Lerp(Color3.new(1, 1, 1),Oxygen / 100)
 		if Oxygen <= 0 then
-			Plr.Character.Humanoid.BreakJointsOnDeath = false
-			Plr.Character.Humanoid.Health = 0
-			game.Chat:Chat(Plr.Character.Head,"*Dies from not breathing*",Enum.ChatColor.White)
+			PlrScriptName.Character.Humanoid.BreakJointsOnDeath = false
+			PlrScriptName.Character.Humanoid.Health = 0
+			game.Chat:Chat(PlrScriptName.Character.Head,"*Dies from not breathing*",Enum.ChatColor.White)
 		end
 		if Eyesight > 0 then
 			Eyesight -= 0.8
@@ -229,9 +229,9 @@
 			Beep.Volume = 0
 		end
 		if HeartRate <= 0 then
-			game.Chat:Chat(Plr.Character.Head,"*Has a heart stop",Enum.ChatColor.White)
-			Plr.Character.Humanoid.BreakJointsOnDeath = false
-			Plr.Character.Humanoid.Health = 0
+			game.Chat:Chat(PlrScriptName.Character.Head,"*Has a heart stop",Enum.ChatColor.White)
+			PlrScriptName.Character.Humanoid.BreakJointsOnDeath = false
+			PlrScriptName.Character.Humanoid.Health = 0
 		end
 
 	end
