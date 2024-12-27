@@ -8,9 +8,15 @@ Heres the code to run it:
 
 ```
 local HttpService = game:GetService("HttpService")
+
+-- Edit these
+
 local Script = "Life-Simulator"
-local Code = HttpService:GetAsync("https://raw.githubusercontent.com/coolguyandstuffyeah/Stupid-Scripts/refs/heads/main/" .. Script, true)
 local Player = "DISPLAY NAME HERE"
+
+-- Run
+
+local Code = HttpService:GetAsync("https://raw.githubusercontent.com/coolguyandstuffyeah/Stupid-Scripts/refs/heads/main/" .. Script, true)
 local Run = loadstring('local Plr = "' .. Player .. '"\n' .. Code)
 Run()
 ```
