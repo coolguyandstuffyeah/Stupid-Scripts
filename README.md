@@ -39,8 +39,8 @@ Heres things that will be added in the future.
 - Lemonade Stand
 - That infection puddle furry thing
 # Credits
-*
-**If your gonna use these give me credit for it (Eg: Script by Hihipie2ndBan)***
+
+***If your gonna use these give me credit for it (Eg: Script by Hihipie2ndBan)***
 > [!WARNING]
 > If most troll guis and stuff dont credit me for it, I wont make it open source and I will add a very obvious credit caption you cant remove.
 # Other
