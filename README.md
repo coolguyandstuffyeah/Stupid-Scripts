@@ -5,6 +5,7 @@ Heres the code to run it:
 
 > [!IMPORTANT]
 > Goto ServerScriptService and turn LoadStringEnabled on or it wont work.
+> 
 > If you see `Please get this model first: WEBSITE`, then goto the website and get the model, You wont have to insert it to your game.
 
 ```
