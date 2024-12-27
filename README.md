@@ -4,7 +4,7 @@ This is a roblox script thing that has really funny items for troll guis and stu
 Heres the code to run it:
 
 > [!IMPORTANT]
-> This only works with server scripts. Client scripts will most of the time break.
+> Goto ServerScriptService and turn LoadStringEnabled on or it wont work.
 
 ```
 local HttpService = game:GetService("HttpService")
