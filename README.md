@@ -7,7 +7,8 @@ Heres the code to run it:
 > This only works with server scripts. Client scripts will most of the time break.
 
 ```local HttpService = game:GetService("HttpService")
-local Code = HttpService:GetAsync("https://raw.githubusercontent.com/coolguyandstuffyeah/Stupid-Scripts/refs/heads/main/Real%20Life", true)
+local Script = "Life-Simulator"
+local Code = HttpService:GetAsync("https://raw.githubusercontent.com/coolguyandstuffyeah/Stupid-Scripts/refs/heads/main/" .. Script, true)
 local Player = "DISPLAY NAME HERE"
 local Run = loadstring('local Plr = "' .. Player .. '"\n' .. Code)
 Run()
