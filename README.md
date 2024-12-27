@@ -18,6 +18,7 @@ local Player = "DISPLAY NAME HERE"
 
 local Code = HttpService:GetAsync("https://raw.githubusercontent.com/coolguyandstuffyeah/Stupid-Scripts/refs/heads/main/" .. Script, true)
 local Run = loadstring('local Plr = "' .. Player .. '"\n' .. Code)
+
 Run()
 ```
 
