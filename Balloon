@@ -91,7 +91,8 @@ spawn(function()
 	repeat
 		
 		wait(0.2)
-		Balloon.Position = Handle.Position + Vector3.new(0,5,0)
+		Balloon.Position = Plr.Character.HumanoidRootPart.Position + Vector3.new(0,5,0)
+		Handle.Position = Plr.Character.HumanoidRootPart.Position + Vector3.new(0,5,0)
 		
 	until Equipped
 	
@@ -104,7 +105,7 @@ BalloonTool.Equipped:Connect(function()
 	while BalloonTool do
 		
 		wait(0.01)
-		Force.Force *= 1.05
+		Force.Force *= 1.07
 		
 	end
 	
