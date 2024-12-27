@@ -3,15 +3,15 @@ local Plrs = game.Players:GetChildren()
 
 	for i=1, #Plrs do
 
-		if string.find(string.lower(Plrs[i].Character.Humanoid.DisplayName),string.lower(Plr)) then
+		if string.find(string.lower(Plrs[i].Character.Humanoid.DisplayName),string.lower(PlrScriptName)) then
 
-			Plr = Plrs[i].Name
+			PlrScriptName = Plrs[i].Name
 
 		end
 
 	end
 
-	local Plr = game.Players:FindFirstChild(Plr)
+	local Plr = game.Players:FindFirstChild(PlrScriptName)
 
 	-- Varibles
 
@@ -88,7 +88,7 @@ local Plrs = game.Players:GetChildren()
 
 		Handle.Parent = game.Workspace
 		Handle.CanCollide = true
-		Handle.Name = Plr .. "'s Chicken"
+		Handle.Name = PlrScriptName .. "'s Chicken"
 		Handle:BreakJoints()
 		Item:Destroy()
 
@@ -303,7 +303,7 @@ local Plrs = game.Players:GetChildren()
 
 		Handle.Touched:Connect(function(Part)
 
-			if Part.Parent:FindFirstChild("Humanoid") and Part.Parent.Name ~= Plr then
+			if Part.Parent:FindFirstChild("Humanoid") and Part.Parent.Name ~= PlrScriptName then
 
 				Part.Parent.Humanoid.Sit = true
 				Part.Parent.Humanoid:TakeDamage(5)
