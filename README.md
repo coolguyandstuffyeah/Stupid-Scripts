@@ -36,6 +36,7 @@ Heres things that will be added in the future.
 - Ballons
 - Bees
 - Lemonade Stand
+- That infection puddle furry thing
 # Credits
 **If your gonna use these give me credit for it (Eg: Script by Hihipie2ndBan)**
 > [!WARNING]
