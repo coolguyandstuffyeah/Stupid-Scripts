@@ -1,5 +1,5 @@
 # Stupid Scripts
-This is a roblox script thing that has really funny items for troll guis and stuff.
+This is a roblox script thing that has dumb items for troll guis and stuff.
 
 Heres the code to run it:
 
