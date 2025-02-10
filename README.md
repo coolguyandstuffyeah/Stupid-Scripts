@@ -39,6 +39,7 @@ Heres things that will be added in the future.
 - Bees
 - Lemonade Stand
 - That infection puddle furry thing
+- Basically this: https://www.youtube.com/shorts/ys99kraxiE4
 # Credits
 
 ***If your gonna use these give me credit for it (Eg: Script by Hihipie2ndBan)***
