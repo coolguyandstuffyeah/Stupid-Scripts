@@ -35,7 +35,6 @@ Heres things that will be added in the future.
 - Doge
 - Pokemon
 - Chloroform Cloth
-- Balloons
 - Bees
 - Lemonade Stand
 - That infection puddle furry thing
