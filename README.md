@@ -35,8 +35,8 @@ Heres things that will be added in the future.
 - Doge
 - Pokemon
 - Chloroform Cloth
-- Bees
 - Russian Roulette
+- Bees
 - Lemonade Stand
 - That infection puddle furry thing
 - Basically this: https://www.youtube.com/shorts/ys99kraxiE4
