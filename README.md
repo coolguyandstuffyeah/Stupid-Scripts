@@ -6,7 +6,7 @@ Heres the code to run it:
 > [!IMPORTANT]
 > Goto ServerScriptService and turn LoadStringEnabled on or it wont work.
 > 
-> If you see `Model not installed: WEBSITE`, then goto the website and get the model, **You wont have to insert it to your game.**
+> Please get this model for some scripts to work: https://create.roblox.com/store/asset/104493384543001
 
 ```
 local HttpService = game:GetService("HttpService")
