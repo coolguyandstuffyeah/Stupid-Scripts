@@ -40,7 +40,7 @@ Heres things that will be added in the future.
 - Lemonade Stand
 - That infection puddle furry thing
 - Basically this: https://www.youtube.com/shorts/ys99kraxiE4
-> [!INFOMATION]
+> [!TIP]
 > I am currently working on russian roulette. It will probably be done in less then 2 weeks.
 # Credits
 
