@@ -13,7 +13,7 @@ local HttpService = game:GetService("HttpService")
 
 -- Edit these
 
-local Script = "Life-Simulator"
+local Script = "Russian Roulette"
 local Player = "DISPLAY NAME HERE"
 
 -- Run
@@ -41,7 +41,7 @@ Heres things that will be added in the future.
 - That infection puddle furry thing
 - Basically this: https://www.youtube.com/shorts/ys99kraxiE4
 > [!TIP]
-> I am currently working on russian roulette. It will probably be done in less then 2 weeks.
+> I am currently working on none right now.
 # Credits
 
 ***If your gonna use these give me credit for it (Eg: Script by Hihipie2ndBan)***
