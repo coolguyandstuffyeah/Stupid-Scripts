@@ -14,7 +14,7 @@ local HttpService = game:GetService("HttpService")
 -- Edit these
 
 local Script = "Russian Roulette"
-local Player = "DISPLAY NAME HERE"
+local Player = "Display Name (Can be shortened)"
 
 -- Run
 
