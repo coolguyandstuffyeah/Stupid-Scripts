@@ -25,7 +25,8 @@ Run()
 ```
 
 > [!NOTE]
-> If you wanna make a suggestion or something you can message me on [Roblox](https://www.roblox.com/users/2468233048/profile) or [Discord](https://discord.gg/G5ecdP5E) <sub>The owner of this server is the person you need.</sub>
+> If you wanna make a suggestion or something you can message me on [Roblox](https://www.roblox.com/users/2468233048/profile) or [Discord](https://discord.gg/G5ecdP5E)
+> <sub>The owner of this server is the person you need.</sub>
 
 # Future
 Heres things that will be added in the future.
