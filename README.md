@@ -35,7 +35,6 @@ Heres things that will be added in the future.
 - PvZ
 - Zombies
 - Slime
-- Doge
 - Pokemon
 - Chloroform Cloth
 - Bees
