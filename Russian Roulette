@@ -1,0 +1,638 @@
+local Work,Error = pcall(function()
+
+	game.InsertService:LoadAsset(104493384543001)
+
+end)
+
+if not Work and Error == "Asset is not trusted for this place" then
+
+	warn("Please get this model for this script to work: https://create.roblox.com/store/asset/104493384543001")
+
+	return
+
+elseif not Work then
+
+	warn("Error: " .. Error)
+
+	return
+
+end
+
+local Plrs = game.Players:GetChildren()
+
+for i=1, #Plrs do
+
+	if string.find(string.lower(Plrs[i].Character.Humanoid.DisplayName),string.lower(PlrScriptName)) then
+
+		PlrScriptName = Plrs[i].Name
+
+	end
+
+end
+
+local Plr = game.Players:GetPlayerFromCharacter(game)
+
+Plr = game.Players:FindFirstChild(PlrScriptName)
+
+assert(Plr.Character:FindFirstChild("Torso"),"You must be fully R6 to use this.")
+
+-- Setup
+
+local Group = Instance.new("Model",game.Workspace)
+
+Group.Name = "Russian Roulette"
+
+local Table = game.InsertService:CreateMeshPartAsync("rbxassetid://13990686352",Enum.CollisionFidelity.Default,Enum.RenderFidelity.Automatic)
+
+Table.Parent = Group
+Table.Size = Vector3.new(3.4, 3.5, 5.7)
+Table.Anchored = true
+Table.TextureID = "rbxassetid://13990688422"
+Table.Position = Plr.Character.Torso.Position - Vector3.new(0,2.45 - Table.Size.Y / 3,0)
+Table.Orientation = Plr.Character.Torso.Orientation
+Table.Position += Table.CFrame.LookVector * 5
+Table.Name = "Table"
+
+local Chair = game.InsertService:CreateMeshPartAsync("rbxassetid://6204647202",Enum.CollisionFidelity.Default,Enum.RenderFidelity.Automatic)
+Chair.Parent = Group
+Chair.Size = Vector3.new(2.5, 5.7, 2.8)
+Chair.TextureID = "rbxassetid://8652225349"
+Chair.Position = Table.Position + (Table.CFrame.RightVector * 3) + Vector3.new(0,1.1,0)
+Chair.Orientation = Table.Orientation + Vector3.new(0,90,0)
+Chair.Anchored = true
+Chair.CanCollide = false
+Chair.Name = "Chair"
+
+local Seat = Instance.new("Seat",Chair)
+
+Seat.Transparency = 1
+Seat.Size = Vector3.new(2,1,2)
+Seat.Anchored = true
+Seat.CanCollide = true
+Seat.Orientation = Chair.Orientation
+Seat.Position = Chair.Position - Vector3.new(0,1,0)
+
+local Chair2 = game.InsertService:CreateMeshPartAsync("rbxassetid://6204647202",Enum.CollisionFidelity.Default,Enum.RenderFidelity.Automatic)
+Chair2.Parent = Group
+Chair2.Size = Vector3.new(2.5, 5.7, 2.8)
+Chair2.TextureID = "rbxassetid://8652225349"
+Chair2.Position = Table.Position + (Table.CFrame.RightVector * -3) + Vector3.new(0,1.1,0)
+Chair2.Orientation = Table.Orientation + Vector3.new(0,-90,0)
+Chair2.Anchored = true
+Chair2.CanCollide = false
+Chair2.Name = "Chair"
+
+local Seat2 = Instance.new("Seat",Chair2)
+
+Seat2.Transparency = 1
+Seat2.Size = Vector3.new(2,1,2)
+Seat2.Anchored = true
+Seat2.CanCollide = true
+Seat2.Orientation = Chair2.Orientation
+Seat2.Position = Chair2.Position - Vector3.new(0,1,0)
+
+local Gun = Instance.new("Model")
+
+Gun = game.InsertService:LoadAsset(104493384543001).Stuff.Gun
+
+Gun.Parent = game.Workspace
+
+Gun:PivotTo(Table.CFrame + Vector3.new(0,Table.Size.Y / 2,0))
+
+Gun:PivotTo(Gun:GetPivot() * CFrame.Angles(0,math.rad(-90),0))
+
+local Player1 = game.Players:GetPlayerFromCharacter(game)
+local Player2 = game.Players:GetPlayerFromCharacter(game)
+
+Player1 = nil
+Player2 = "nil"
+
+local Playing = false
+
+function Sound(ParentOrPosition,Id,Pitch)
+
+	local Sound = Instance.new("Sound")
+
+	if type(ParentOrPosition) == "userdata" then
+
+		Sound.Parent = ParentOrPosition
+
+	end
+
+	if type(ParentOrPosition) == "vector" then
+
+		local Part = Instance.new("Part",game.Workspace)
+		Part.Transparency = 1
+		Part.Anchored = true
+		Part.Position = ParentOrPosition
+		Part.Size = Vector3.new(0.01,0.01,0.01)
+		Sound.Parent = Part
+
+		Sound.Ended:Connect(function() wait(0.5) Part:Destroy()  end)
+
+	end
+
+	Sound.SoundId = "rbxassetid://" .. Id
+
+	if Pitch == nil then
+
+		Sound.PlaybackSpeed = 1
+
+	end
+
+	if Pitch == "random" then
+
+		Sound.PlaybackSpeed = math.random(90,110) / 100
+
+	else
+
+		Sound.PlaybackSpeed = Pitch
+
+	end
+
+	Sound:Play()
+
+	Sound.Ended:Connect(function() wait(0.5) Sound:Destroy()  end)
+
+end
+
+function Set(PX: number,PY: number,PZ: number,RX: number,RY: number,RZ: number)
+	
+	return CFrame.new(PX,PY,PZ) * CFrame.Angles(math.rad(RX),math.rad(RY),math.rad(RZ))
+	
+end
+
+function Play()
+	
+	if Player1 and Player2 and not Playing then
+		
+		local Bullet = math.random(1,6)
+		
+		Playing = true
+		
+		local Dead = "None"
+		
+		local Rolled = false
+		
+		while Dead == "None" do
+			
+			game.TweenService:Create(Player1.Character.Torso["Right Shoulder"],TweenInfo.new(0.5),{C0 = Set(1,0.5,0,1.5,43,-11),C1 = Set(-0.5,1.1,0.022,0,90,0)}):Play()
+
+			wait(0.7)
+
+			game.TweenService:Create(Player1.Character.Torso["Right Shoulder"],TweenInfo.new(0.1),{C0 = Set(1,0.5,0,-6,145,-11),C1 = Set(-0.6, 1, 0.05,0,90,0)}):Play()
+
+			wait(0.05)
+
+			spawn(function()
+
+				wait(0.5)
+
+				game.TweenService:Create(Player1.Character.Torso["Right Shoulder"],TweenInfo.new(0.4),{C0 = Set(1,0.5,0,0,90,-15),C1 = Set(-0.5,0.5,0,0,90,0)}):Play()
+
+			end)
+
+			local Speed = math.random(1000,5000) / 100
+
+			while Speed > 0.2 do
+
+				wait(0.01)
+
+				Speed -= 0.2
+
+				Gun:PivotTo(Gun:GetPivot() * CFrame.Angles(0,math.rad(-Speed),0))
+
+			end
+
+			local _, GunY, _ = Gun:GetPivot():ToEulerAnglesYXZ()
+			local _, TableY, _ = Table.CFrame:ToEulerAnglesYXZ()
+
+			local Diff = math.deg(GunY - TableY) % 360
+
+			wait(2)
+
+			if Diff > 90 and Diff < 270 then
+
+				game.TweenService:Create(Player2.Character.Torso["Right Shoulder"],TweenInfo.new(0.5),{C0 = Set(1,0.5,0,5,125,-15),C1 = Set(-0.5, 2, 0,0,90,0)}):Play()
+
+				wait(0.5)
+
+				if not Rolled then
+
+					Rolled = true
+
+					Gun:PivotTo(CFrame.new(Player2.Character["Right Arm"].CFrame.Position + Player2.Character["Right Arm"].CFrame.UpVector * -1.5 + (Player2.Character["Right Arm"].CFrame.RightVector * 0.1)) * Player2.Character["Right Arm"].CFrame.Rotation * CFrame.Angles(0,math.rad(180),math.rad(-90)))
+
+					local Tween = game.TweenService:Create(Player2.Character.Torso["Right Shoulder"],TweenInfo.new(0.5),{C0 = Set(1,0.5,0,6,143,8),C1 = Set(-0.9, 1, -0.1,0,90,0)})
+
+					local Ended = false
+
+					Tween:Play()
+
+					Tween.Completed:Connect(function()
+
+						Ended = true
+
+					end)
+
+					repeat
+
+						wait()
+						Gun:PivotTo(CFrame.new(Player2.Character["Right Arm"].CFrame.Position + Player2.Character["Right Arm"].CFrame.UpVector * -1.5 + (Player2.Character["Right Arm"].CFrame.RightVector * 0.1)) * Player2.Character["Right Arm"].CFrame.Rotation * CFrame.Angles(0,math.rad(180),math.rad(-90)))
+
+					until Ended
+
+					game.TweenService:Create(Player2.Character.Torso["Left Shoulder"],TweenInfo.new(0.5),{C0 = Set(-1,0.5,0,5,-118,-20),C1 = Set(0.5, 1, 0,0,-90,0)}):Play()
+
+					wait(0.8)
+
+					game.TweenService:Create(Player2.Character.Torso["Left Shoulder"],TweenInfo.new(0.3),{C0 = Set(-1,0.5,0,5,-118,5),C1 = Set(0.5, 1, 0,0,-90,0)}):Play()
+
+					local Speed = math.random(3000,4000) / 100
+
+					while Speed > 0.5 do
+
+						wait(0.01)
+
+						Speed -= 0.5
+
+						Gun.Cylinder.CFrame *= CFrame.Angles(math.rad(-Speed),0,0)
+						Gun.Fade1.CFrame *= CFrame.Angles(math.rad(-Speed),0,0)
+						Gun.Fade2.CFrame *= CFrame.Angles(math.rad(-Speed),0,0)
+						Gun.Fade3.CFrame *= CFrame.Angles(math.rad(-Speed),0,0)
+
+					end
+
+					game.TweenService:Create(Player2.Character.Torso["Left Shoulder"],TweenInfo.new(2),{C0 = Set(-1,0.5,0,0,-90,15), C1 = Set(0.5,0.5,0,0,-90,0)}):Play()
+
+					wait(2.4)
+
+				else
+
+					wait(0.3)
+
+				end
+
+				local Tween = game.TweenService:Create(Player2.Character.Torso["Right Shoulder"],TweenInfo.new(0.5),{C0 = Set(1,0.5,0,0,-90,22),C1 = Set(-1, -2.1, 0.4,0,90,0)})
+				game.TweenService:Create(Player2.Character.Torso["Neck"],TweenInfo.new(0.5),{C0 = Set(0,1,0,115, 180, 0),C1 = Set(0, -0.64, 0.05,90,-180,0)}):Play()
+
+				Tween:Play()
+
+				local Ended = false
+
+				Tween.Completed:Connect(function()
+
+					Ended = true
+
+				end)
+
+				repeat
+
+					wait()
+					Gun:PivotTo(CFrame.new(Player2.Character["Right Arm"].CFrame.Position + Player2.Character["Right Arm"].CFrame.UpVector * -1.5 + (Player2.Character["Right Arm"].CFrame.RightVector * 0.1)) * Player2.Character["Right Arm"].CFrame.Rotation * CFrame.Angles(0,math.rad(180),math.rad(-90)))
+
+				until Ended
+
+				wait(0.5)
+
+				Bullet -= 1
+
+				if Bullet == 0 then
+
+					game.Players.CharacterAutoLoads = false
+
+					wait(0.1)
+
+					Sound(Gun.Barrel,"1583819337",1)
+
+					Chair2.CanCollide = true
+
+					Player2.Character.Humanoid.Health = 0
+
+					for _, Thing in Gun:GetChildren() do
+
+						Thing.Anchored = false
+
+					end
+
+					wait(0.1)
+
+					game.Players.CharacterAutoLoads = true
+
+					wait(3.9)
+
+					for _, Part in Player2.Character:GetDescendants() do
+
+						if Part:IsA("BasePart") then
+
+							game.TweenService:Create(Part,TweenInfo.new(1,Enum.EasingStyle.Linear),{Transparency = 1}):Play()
+
+						end
+
+					end
+
+					wait(1.5)
+
+					Player2:LoadCharacter()
+
+					Dead = "Player2"
+
+				else
+
+					Sound(Gun.Barrel,"121451471362481",1)
+
+					wait(1)
+					
+					local Tween = game.TweenService:Create(Player2.Character.Torso["Right Shoulder"],TweenInfo.new(0.5),{C0 = Set(1,0.5,0,5,125,-15),C1 = Set(-0.5, 2, 0,0,90,0)})
+					game.TweenService:Create(Player2.Character.Torso["Neck"],TweenInfo.new(0.5),{C0 = Set(0,1,0,90, -180, 0),C1 = Set(0, -0.5, 0.0,90,-180,0)}):Play()
+
+					local Done = false
+
+					Tween:Play()
+
+					Tween.Completed:Connect(function()
+
+						Done = true
+
+					end)
+
+					repeat
+
+						wait()
+						Gun:PivotTo(CFrame.new(Player2.Character["Right Arm"].CFrame.Position + Player2.Character["Right Arm"].CFrame.UpVector * -1.5 + (Player2.Character["Right Arm"].CFrame.RightVector * 0.1)) * Player2.Character["Right Arm"].CFrame.Rotation * CFrame.Angles(0,math.rad(180),math.rad(-90)))
+
+					until Done
+
+					wait(0.3)
+
+					Gun:PivotTo(Table.CFrame + Vector3.new(0,Table.Size.Y / 2,0))
+
+					Gun:PivotTo(Gun:GetPivot() * CFrame.Angles(0,math.rad(-90),0))
+
+					game.TweenService:Create(Player2.Character.Torso["Right Shoulder"],TweenInfo.new(0.4),{C0 = Set(1,0.5,0,0,90,-15),C1 = Set(-0.5,0.5,0,0,90,0)}):Play()
+
+				end
+
+			else
+
+				game.TweenService:Create(Player1.Character.Torso["Right Shoulder"],TweenInfo.new(0.5),{C0 = Set(1,0.5,0,5,125,-15),C1 = Set(-0.5, 2, 0,0,90,0)}):Play()
+
+				wait(0.5)
+
+				if not Rolled then
+
+					Rolled = true
+
+					Gun:PivotTo(CFrame.new(Player1.Character["Right Arm"].CFrame.Position + Player1.Character["Right Arm"].CFrame.UpVector * -1.5 + (Player1.Character["Right Arm"].CFrame.RightVector * 0.1)) * Player1.Character["Right Arm"].CFrame.Rotation * CFrame.Angles(0,math.rad(180),math.rad(-90)))
+
+					local Tween = game.TweenService:Create(Player1.Character.Torso["Right Shoulder"],TweenInfo.new(0.5),{C0 = Set(1,0.5,0,6,143,8),C1 = Set(-0.9, 1, -0.1,0,90,0)})
+
+					local Ended = false
+
+					Tween:Play()
+
+					Tween.Completed:Connect(function()
+
+						Ended = true
+
+					end)
+
+					repeat
+
+						wait()
+						Gun:PivotTo(CFrame.new(Player1.Character["Right Arm"].CFrame.Position + Player1.Character["Right Arm"].CFrame.UpVector * -1.5 + (Player1.Character["Right Arm"].CFrame.RightVector * 0.1)) * Player1.Character["Right Arm"].CFrame.Rotation * CFrame.Angles(0,math.rad(180),math.rad(-90)))
+
+					until Ended
+
+					game.TweenService:Create(Player1.Character.Torso["Left Shoulder"],TweenInfo.new(0.5),{C0 = Set(-1,0.5,0,5,-118,-20),C1 = Set(0.5, 1, 0,0,-90,0)}):Play()
+
+					wait(0.8)
+
+					game.TweenService:Create(Player1.Character.Torso["Left Shoulder"],TweenInfo.new(0.3),{C0 = Set(-1,0.5,0,5,-118,5),C1 = Set(0.5, 1, 0,0,-90,0)}):Play()
+
+					local Speed = math.random(3000,4000) / 100
+
+					while Speed > 0.5 do
+
+						wait(0.01)
+
+						Speed -= 0.5
+
+						Gun.Cylinder.CFrame *= CFrame.Angles(math.rad(-Speed),0,0)
+						Gun.Fade1.CFrame *= CFrame.Angles(math.rad(-Speed),0,0)
+						Gun.Fade2.CFrame *= CFrame.Angles(math.rad(-Speed),0,0)
+						Gun.Fade3.CFrame *= CFrame.Angles(math.rad(-Speed),0,0)
+
+					end
+
+					game.TweenService:Create(Player1.Character.Torso["Left Shoulder"],TweenInfo.new(2),{C0 = Set(-1,0.5,0,0,-90,15), C1 = Set(0.5,0.5,0,0,-90,0)}):Play()
+
+					wait(2.4)
+
+				else
+
+					wait(0.3)
+
+				end
+
+				local Tween = game.TweenService:Create(Player1.Character.Torso["Right Shoulder"],TweenInfo.new(0.5),{C0 = Set(1,0.5,0,0,-90,22),C1 = Set(-1, -2.1, 0.4,0,90,0)})
+				game.TweenService:Create(Player1.Character.Torso["Neck"],TweenInfo.new(0.5),{C0 = Set(0,1,0,115, 180, 0),C1 = Set(0, -0.64, 0.05,90,-180,0)}):Play()
+
+				Tween:Play()
+
+				local Ended = false
+
+				Tween.Completed:Connect(function()
+
+					Ended = true
+
+				end)
+
+				repeat
+
+					wait()
+					Gun:PivotTo(CFrame.new(Player1.Character["Right Arm"].CFrame.Position + Player1.Character["Right Arm"].CFrame.UpVector * -1.5 + (Player1.Character["Right Arm"].CFrame.RightVector * 0.1)) * Player1.Character["Right Arm"].CFrame.Rotation * CFrame.Angles(0,math.rad(180),math.rad(-90)))
+
+				until Ended
+
+				wait(0.5)
+
+				Bullet -= 1
+
+				if Bullet == 0 then
+
+					game.Players.CharacterAutoLoads = false
+
+					wait(0.1)
+
+					Chair.CanCollide = true
+
+					Player1.Character.Humanoid.Health = 0
+
+					for _, Thing in Gun:GetChildren() do
+
+						Thing.Anchored = false
+
+					end
+
+					wait(0.1)
+
+					game.Players.CharacterAutoLoads = true
+
+					wait(3.9)
+
+					for _, Part in Player1.Character:GetDescendants() do
+
+						if Part:IsA("BasePart") then
+
+							game.TweenService:Create(Part,TweenInfo.new(1,Enum.EasingStyle.Linear),{Transparency = 1}):Play()
+
+						end
+
+					end
+
+					wait(1.5)
+
+					Player1:LoadCharacter()
+
+					Dead = "Player1"
+
+				else
+
+					wait(1)
+
+					local Tween = game.TweenService:Create(Player1.Character.Torso["Right Shoulder"],TweenInfo.new(0.5),{C0 = Set(1,0.5,0,5,125,-15),C1 = Set(-0.5, 2, 0,0,90,0)})
+					game.TweenService:Create(Player1.Character.Torso["Neck"],TweenInfo.new(0.5),{C0 = Set(0,1,0,90, -180, 0),C1 = Set(0, -0.5, 0.0,90,-180,0)}):Play()
+
+					local Done = false
+
+					Tween:Play()
+
+					Tween.Completed:Connect(function()
+
+						Done = true
+
+					end)
+
+					repeat
+
+						wait()
+						Gun:PivotTo(CFrame.new(Player1.Character["Right Arm"].CFrame.Position + Player1.Character["Right Arm"].CFrame.UpVector * -1.5 + (Player1.Character["Right Arm"].CFrame.RightVector * 0.1)) * Player1.Character["Right Arm"].CFrame.Rotation * CFrame.Angles(0,math.rad(180),math.rad(-90)))
+
+					until Done
+
+					wait(0.3)
+
+					Gun:PivotTo(Table.CFrame + Vector3.new(0,Table.Size.Y / 2,0))
+
+					Gun:PivotTo(Gun:GetPivot() * CFrame.Angles(0,math.rad(-90),0))
+
+					game.TweenService:Create(Player1.Character.Torso["Right Shoulder"],TweenInfo.new(0.4),{C0 = Set(1,0.5,0,0,90,-15),C1 = Set(-0.5,0.5,0,0,90,0)}):Play()
+
+				end
+
+			end
+			
+		end
+		
+		if Dead == "Player1" then
+		
+		
+		else
+			
+			
+		end
+		
+	end
+	
+end
+
+Seat.Changed:Connect(function(Type)
+	
+	if Type == "Occupant" and Seat.Occupant ~= nil then
+		
+		Player1 = game.Players:GetPlayerFromCharacter(Seat.Occupant.Parent)
+		
+		Seat.Occupant.JumpPower = 0
+		Seat.Occupant.UseJumpPower = true
+		
+		local Tween = game.TweenService:Create(Chair,TweenInfo.new(1),{Position = Chair.Position + (Chair.CFrame.LookVector * 0.8)})
+		
+		local Ended = false
+		
+		Tween:Play()
+		
+		Tween.Completed:Connect(function()
+			
+			Ended = true
+			
+		end)
+		
+		spawn(function()
+			
+			repeat
+				
+				wait()
+				Player1.Character:PivotTo(CFrame.new(Chair.Position + Vector3.new(0,2.5,0)) * Player1.Character:GetPivot().Rotation)
+				
+			until Ended
+			
+		end)
+		
+		wait(1)
+		
+		game.TweenService:Create(Player1.Character.Torso["Right Shoulder"],TweenInfo.new(1),{C0 = CFrame.new(1,0.5,0) * CFrame.Angles(0, math.rad(90), math.rad(-15))}):Play()
+		game.TweenService:Create(Player1.Character.Torso["Left Shoulder"],TweenInfo.new(1),{C0 = CFrame.new(-1,0.5,0) * CFrame.Angles(0, math.rad(-90), math.rad(15))}):Play()
+
+		wait(0.5)
+		
+		Play()
+		
+	end
+	
+end)
+
+Seat2.Changed:Connect(function(Type)
+
+	if Type == "Occupant" and Seat2.Occupant ~= nil then
+
+		Player2 = game.Players:GetPlayerFromCharacter(Seat2.Occupant.Parent)
+
+		Seat2.Occupant.JumpPower = 0
+		Seat2.Occupant.UseJumpPower = true
+
+		local Tween = game.TweenService:Create(Chair2,TweenInfo.new(1),{Position = Chair2.Position + (Chair2.CFrame.LookVector * 0.8)})
+
+		local Ended = false
+
+		Tween:Play()
+
+		Tween.Completed:Connect(function()
+
+			Ended = true
+
+		end)
+
+		spawn(function()
+
+			repeat
+
+				wait()
+				Player2.Character:PivotTo(CFrame.new(Chair2.Position + Vector3.new(0,2.5,0)) * Player2.Character:GetPivot().Rotation)
+
+			until Ended
+
+		end)
+
+		wait(1)
+
+		game.TweenService:Create(Player2.Character.Torso["Right Shoulder"],TweenInfo.new(1),{C0 = CFrame.new(1,0.5,0) * CFrame.Angles(0, math.rad(90), math.rad(-15))}):Play()
+		game.TweenService:Create(Player2.Character.Torso["Left Shoulder"],TweenInfo.new(1),{C0 = CFrame.new(-1,0.5,0) * CFrame.Angles(0, math.rad(-90), math.rad(15))}):Play()
+
+		wait(0.5)
+
+		Play()
+
+	end
+
+end)
