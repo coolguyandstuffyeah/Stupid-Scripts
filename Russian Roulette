@@ -157,25 +157,25 @@ function Sound(ParentOrPosition,Id,Pitch)
 end
 
 function Set(PX: number,PY: number,PZ: number,RX: number,RY: number,RZ: number)
-	
+
 	return CFrame.new(PX,PY,PZ) * CFrame.Angles(math.rad(RX),math.rad(RY),math.rad(RZ))
-	
+
 end
 
 function Play()
-	
+
 	if Player1 and Player2 and not Playing then
-		
+
 		local Bullet = math.random(1,6)
-		
+
 		Playing = true
-		
+
 		local Dead = "None"
-		
+
 		local Rolled = false
-		
+
 		while Dead == "None" do
-			
+
 			game.TweenService:Create(Player1.Character.Torso["Right Shoulder"],TweenInfo.new(0.5),{C0 = Set(1,0.5,0,1.5,43,-11),C1 = Set(-0.5,1.1,0.022,0,90,0)}):Play()
 
 			wait(0.7)
@@ -342,7 +342,7 @@ function Play()
 					Sound(Gun.Barrel,"121451471362481",1)
 
 					wait(1)
-					
+
 					local Tween = game.TweenService:Create(Player2.Character.Torso["Right Shoulder"],TweenInfo.new(0.5),{C0 = Set(1,0.5,0,5,125,-15),C1 = Set(-0.5, 2, 0,0,90,0)})
 					game.TweenService:Create(Player2.Character.Torso["Neck"],TweenInfo.new(0.5),{C0 = Set(0,1,0,90, -180, 0),C1 = Set(0, -0.5, 0.0,90,-180,0)}):Play()
 
@@ -532,64 +532,83 @@ function Play()
 				end
 
 			end
-			
+
 		end
-		
+
 		if Dead == "Player1" then
-		
-		
+
+			Player2.Character.Humanoid.JumpPower = 50
+			Player2.Character.Humanoid.UseJumpPower = true
+			Player2.Character.Humanoid.Jump = true
+			
 		else
-			
-			
+
+			Player1.Character.Humanoid.JumpPower = 50
+			Player1.Character.Humanoid.UseJumpPower = true
+			Player1.Character.Humanoid.Jump = true
+
 		end
+		
+		Seat:Destroy()
+		Seat2:Destroy()
+		
+		wait(0.1)
+		
+		game.TweenService:Create(Chair,TweenInfo.new(0.5),{Transparency = 1}):Play()
+		game.TweenService:Create(Chair2,TweenInfo.new(0.5),{Transparency = 1}):Play()
+		game.TweenService:Create(Table,TweenInfo.new(0.5),{Transparency = 1}):Play()
+		
+		wait(0.7)
+		
+		Group:Destroy()
 		
 	end
-	
+
 end
 
 Seat.Changed:Connect(function(Type)
-	
+
 	if Type == "Occupant" and Seat.Occupant ~= nil then
-		
+
 		Player1 = game.Players:GetPlayerFromCharacter(Seat.Occupant.Parent)
-		
+
 		Seat.Occupant.JumpPower = 0
 		Seat.Occupant.UseJumpPower = true
-		
+
 		local Tween = game.TweenService:Create(Chair,TweenInfo.new(1),{Position = Chair.Position + (Chair.CFrame.LookVector * 0.8)})
-		
+
 		local Ended = false
-		
+
 		Tween:Play()
-		
+
 		Tween.Completed:Connect(function()
-			
+
 			Ended = true
-			
+
 		end)
-		
+
 		spawn(function()
-			
+
 			repeat
-				
+
 				wait()
 				Player1.Character:PivotTo(CFrame.new(Chair.Position + Vector3.new(0,2.5,0)) * Player1.Character:GetPivot().Rotation)
-				
+
 			until Ended
-			
+
 		end)
-		
+
 		wait(1)
-		
+
 		game.TweenService:Create(Player1.Character.Torso["Right Shoulder"],TweenInfo.new(1),{C0 = CFrame.new(1,0.5,0) * CFrame.Angles(0, math.rad(90), math.rad(-15))}):Play()
 		game.TweenService:Create(Player1.Character.Torso["Left Shoulder"],TweenInfo.new(1),{C0 = CFrame.new(-1,0.5,0) * CFrame.Angles(0, math.rad(-90), math.rad(15))}):Play()
 
 		wait(0.5)
-		
+
 		Play()
-		
+
 	end
-	
+
 end)
 
 Seat2.Changed:Connect(function(Type)
