@@ -105,7 +105,7 @@ local Player1 = game.Players:GetPlayerFromCharacter(game)
 local Player2 = game.Players:GetPlayerFromCharacter(game)
 
 Player1 = nil
-Player2 = "nil"
+Player2 = nil
 
 local Playing = false
 
