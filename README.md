@@ -5,7 +5,7 @@ This is a roblox script thing that has dumb items for troll guis and stuff.
 Heres the code to run it:
 
 > [!IMPORTANT]
-> Goto ServerScriptService and turn LoadStringEnabled on or it wont work.
+> Goto ServerScriptService and turn LoadStringEnabled on and HTTP Requests in settings on or it wont work.
 > 
 > Please get this model for some scripts to work: https://create.roblox.com/store/asset/104493384543001
 
