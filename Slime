@@ -1,0 +1,384 @@
+local Plrs = game.Players:GetChildren()
+
+for i=1, #Plrs do
+
+	if string.find(string.lower(Plrs[i].Character.Humanoid.DisplayName),string.lower(PlrScriptName)) then
+
+		PlrScriptName = Plrs[i].Name
+
+	end
+
+end
+
+local Plr = game.Players:GetPlayerFromCharacter(game)
+
+Plr = game.Players:FindFirstChild(PlrScriptName)
+
+assert(Plr.Character:FindFirstChild("Torso"),"You must be fully R6 to use this.")
+
+-- Functions
+
+function Sound(ParentOrPosition,Id,Pitch)
+
+	local Sound = Instance.new("Sound")
+
+	if type(ParentOrPosition) == "userdata" then
+
+		Sound.Parent = ParentOrPosition
+
+	end
+
+	if type(ParentOrPosition) == "vector" then
+
+		local Part = Instance.new("Part",game.Workspace)
+		Part.Transparency = 1
+		Part.Anchored = true
+		Part.Position = ParentOrPosition
+		Part.Size = Vector3.new(0.01,0.01,0.01)
+		Sound.Parent = Part
+
+		Sound.Ended:Connect(function() wait(0.5) Part:Destroy()  end)
+
+	end
+
+	Sound.SoundId = "rbxassetid://" .. Id
+
+	if Pitch == nil then
+
+		Sound.PlaybackSpeed = 1
+
+	end
+
+	if Pitch == "random" then
+
+		Sound.PlaybackSpeed = math.random(90,110) / 100
+
+	else
+
+		Sound.PlaybackSpeed = Pitch
+
+	end
+
+	Sound:Play()
+
+	Sound.Ended:Connect(function() wait(0.5) Sound:Destroy()  end)
+
+end
+
+-- Morph
+
+local Union1 = Instance.new("Part", game.Workspace)
+
+Union1.Position = Vector3.new(0, -1.5, 0)
+Union1.Size = Vector3.new(4.1, 2.1, 4.1)
+
+local Union2 = Instance.new("Part", game.Workspace)
+
+Union2.Shape = Enum.PartType.Ball
+Union2.Size = Vector3.new(4, 4, 4)
+
+local Slime = Instance.new("UnionOperation")
+
+Slime = Union2:SubtractAsync({Union1},Enum.CollisionFidelity.Default,Enum.RenderFidelity.Automatic)
+
+Union1:Destroy()
+Union2:Destroy()
+
+Slime.Color = Color3.new(0, 0.6, 1)
+Slime.Name = "Slime"
+Slime.Material = Enum.Material.SmoothPlastic
+Slime.Transparency = 0.5
+Slime.CanCollide = false
+Slime.UsePartColor = true
+Slime.Size *= 1.5
+
+Plr.Character.Humanoid.RequiresNeck = false
+Plr.Character.Head:Destroy()
+Plr.Character:FindFirstChild("Animate"):Remove()
+Plr.Character.Humanoid.HipHeight = Slime.Size.Y / 3
+Plr.Character.Humanoid.WalkSpeed = 0.01
+Plr.Character.Humanoid.MaxHealth = 100
+Plr.Character.Humanoid.Health = 100
+Plr.Character.Humanoid.UseJumpPower = true
+Plr.Character.Humanoid.JumpPower = 0
+Plr.Character.HumanoidRootPart:Destroy()
+Plr.Character.Torso.Transparency = 1
+Plr.Character.Torso.Size = Vector3.new(0,0,0)
+Plr.Character["Right Arm"]:Destroy()
+Plr.Character["Left Arm"]:Destroy()
+Plr.Character["Right Leg"]:Destroy()
+Plr.Character["Left Leg"]:Destroy()
+Plr.Backpack:ClearAllChildren()
+
+for _, Thing in Plr.Character:GetChildren() do
+
+	if Thing:IsA("Accessory") then
+
+		Thing:Destroy()
+
+	end
+
+end
+
+Slime.Parent = Plr.Character
+Slime.Position = Plr.Character.Torso.Position
+
+local Connect = Instance.new("Weld",Slime)
+
+Connect.Part0 = Slime
+Connect.Part1 = Plr.Character.Torso
+
+local Head = Instance.new("Part",Plr.Character)
+
+Head.Name = "Head"
+Head.Size = Vector3.new(0,0,0)
+
+local Mesh = Instance.new("BlockMesh",Head)
+
+Mesh.Scale = Vector3.new(0,0,0)
+
+local HeadWeld = Instance.new("Weld",Head)
+
+HeadWeld.Part0 = Head
+HeadWeld.Part1 = Slime
+HeadWeld.C0 = CFrame.new(0,-Slime.Size.Y / 2,0)
+
+local Root = Instance.new("Part",Plr.Character)
+
+Root.Name = "HumanoidRootPart"
+Root.Size = Vector3.new(1,1,1)
+
+local Mesh = Instance.new("BlockMesh",Root)
+
+Mesh.Scale = Vector3.new(0,0,0)
+
+local RootWeld = Instance.new("Weld",Root)
+
+RootWeld.Part0 = Root
+RootWeld.Part1 = Slime
+
+-- Movement
+
+local JumpCool = false
+
+wait()
+
+Slime.Massless = true
+
+local StayUp = Instance.new("BodyGyro", Slime)
+
+StayUp.P = 30000
+
+local StayUp = Instance.new("BodyGyro", Plr.Character.Torso)
+
+StayUp.P = 30000
+
+local HipHeight = Slime.Size.Y / 3
+local Size = Vector3.new(6, 3.675, 6)
+
+local SoundCooldown = false
+
+Plr.Character.Humanoid.FreeFalling:Connect(function(Active)
+	
+	if not Active then
+
+		if not SoundCooldown then
+			
+			Sound(Slime,"836796971",1)
+			SoundCooldown = true
+			
+			spawn(function()
+				
+				wait(0.5)
+				SoundCooldown = false
+				
+			end)
+			
+		end
+		
+		game.TweenService:Create(Slime,TweenInfo.new(0.3),{Size = Size}):Play()
+		
+	end
+	
+end)
+
+Plr.Character.Humanoid.Changed:Connect(function(Prop)
+	
+	if Prop == "MoveDirection" and Plr.Character.Humanoid.MoveDirection ~= Vector3.new(0,0,0) then
+		
+		while Plr.Character.Humanoid.MoveDirection ~= Vector3.new(0,0,0) do
+			
+			wait()
+			
+			if not JumpCool then
+
+				JumpCool = true
+
+				Sound(Slime,"836797474",1)
+				
+				game.TweenService:Create(Slime,TweenInfo.new(0.3),{Size = Size + Vector3.new(0,Size.Y * 0.272,0)}):Play()
+
+				local Velocity = Instance.new("BodyVelocity",Slime)
+
+				Velocity.MaxForce = Vector3.new(1000000000,1000000000,1000000000)
+				Velocity.Velocity = ((Slime.Position + Plr.Character.Humanoid.MoveDirection) - Slime.Position).Unit * (Slime.Size.Y * 9.523) + Vector3.new(0,Slime.Size.Y * 5.442176,0)
+				Velocity.P = 10000
+
+				game.Debris:AddItem(Velocity,0.2)
+
+				wait(1)
+
+				JumpCool = false
+
+			end
+			
+		end
+		
+	end
+	
+end)
+
+-- Attack
+
+local Cooldown = {}
+
+Slime.Touched:Connect(function(Part)
+	
+	if Part.Parent:FindFirstChildOfClass("Humanoid") and Part.Parent:FindFirstChildOfClass("Humanoid").Health ~= 0 and not table.find(Cooldown,Part.Parent.Name) and Part.Parent:FindFirstChild("HumanoidRootPart") then
+		
+		local Hurt = Part.Parent
+		
+		local Pitch = math.random(90,110) / 100
+		
+		Sound(Part,"96142644394109",Pitch)
+
+		table.insert(Cooldown,Hurt.Name)
+		
+		local Damaged = Instance.new("Highlight",Hurt)
+		
+		Damaged.OutlineTransparency = 1
+		
+		game.TweenService:Create(Damaged,TweenInfo.new(1),{FillTransparency = 1}):Play()
+		
+		Hurt:FindFirstChildOfClass("Humanoid"):TakeDamage(25)
+		
+		if Hurt:FindFirstChildOfClass("Humanoid").Health ~= 0 then
+			
+			local Velocity = Instance.new("BodyVelocity",Hurt.HumanoidRootPart)
+
+			Velocity.MaxForce = Vector3.new(1000000000,1000000000,1000000000)
+			Velocity.Velocity = (Hurt.HumanoidRootPart.Position - Slime.Position).Unit * 50 + Vector3.new(0,20,0)
+			Velocity.P = 10000
+
+			game.Debris:AddItem(Velocity,0.2)
+			
+		else
+			
+			local FakePlayer = Instance.new("Model",game.Workspace)
+			
+			FakePlayer.Name = "Edible " .. Hurt.Name
+			
+			for _, Thing in Hurt:GetChildren() do
+				
+				if Thing:IsA("BasePart") or Thing:IsA("Accessory") or Thing:IsA("Humanoid") or Thing:IsA("Shirt") or Thing:IsA("ShirtGraphic") or Thing:IsA("Pants") then
+					
+					if Thing:IsA("BasePart") then
+						
+						Thing.CanCollide = true
+						Thing.Anchored = true
+						
+						for _, Item in Thing:GetChildren() do
+
+							if not Item:IsA("SpecialMesh") and not Item:IsA("Sound") then
+
+								Item:Destroy()
+
+							end
+
+						end
+						
+					end
+					
+					Thing:Clone().Parent = FakePlayer
+					
+					if Thing:IsA("BasePart") then
+						
+						Thing.Transparency = 1
+						
+					end
+					
+				end
+				
+			end
+			
+			for _, Thing in Hurt:GetDescendants() do
+				
+				if Thing:IsA("BasePart") then
+					
+					Thing.Transparency = 1
+					
+				end
+				
+			end
+			
+			for _, Part in FakePlayer:GetDescendants() do
+				
+				if Part:IsA("BasePart") then
+					
+					spawn(function()
+						
+						wait(1.5)
+						
+						local Did = false
+
+						Part.Touched:Connect(function(Touch)
+
+							if Touch == Slime and not Did then
+
+								Did = true
+								
+								local Pitch = math.random(90,110) / 100
+
+								Sound(Slime,"344167846",Pitch)
+
+								game.TweenService:Create(Part,TweenInfo.new(0.5),{Transparency = 1,Size = Vector3.new(0,0,0)}):Play()
+
+								game.Debris:AddItem(Part,0.5)
+								
+								Size += Vector3.new(0.1,0.1,0.1)
+								
+								local Scale = Size.Y / 3.675
+								
+								HipHeight = Slime.Size.Y / 3
+								
+								game.TweenService:Create(Slime,TweenInfo.new(0.3),{Size = Size}):Play()
+								game.TweenService:Create(Plr.Character.Humanoid,TweenInfo.new(0.3),{HipHeight = HipHeight}):Play()
+
+							end
+
+						end)
+						
+						wait(3)
+						
+						Part.Velocity = Vector3.new(math.random(-20,20),math.random(0,30),math.random(-20,20))
+						Part.RotVelocity = Vector3.new(math.random(-20,20),math.random(-20,20),math.random(-20,20))
+						Part.Anchored = false
+						Part.CanCollide = false
+						
+					end)
+					
+				end
+				
+			end
+			
+		end
+
+		wait(1)
+		
+		Damaged:Destroy()
+
+		table.clear(Cooldown)
+		
+	end
+	
+end)
