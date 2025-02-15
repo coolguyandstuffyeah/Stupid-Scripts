@@ -34,7 +34,6 @@ Run()
 Heres things that will be added in the future.
 - PvZ
 - Zombies
-- Slime
 - Pokemon
 - Chloroform Cloth
 - Bees
