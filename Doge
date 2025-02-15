@@ -1,5 +1,5 @@
 local Plrs = game.Players:GetChildren()
-
+ 
 for i=1, #Plrs do
 
 	if string.find(string.lower(Plrs[i].Character.Humanoid.DisplayName),string.lower(PlrScriptName)) then
