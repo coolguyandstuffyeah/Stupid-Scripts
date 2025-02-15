@@ -3,7 +3,7 @@ local Work,Error = pcall(function()
 	game.InsertService:LoadAsset(104493384543001)
 
 end)
-
+ 
 if not Work and Error == "Asset is not trusted for this place" then
 
 	warn("Please get this model for this script to work: https://create.roblox.com/store/asset/104493384543001")
