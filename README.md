@@ -38,6 +38,7 @@ Heres things that will be added in the future.
 - Bees
 - Lemonade Stand
 - Infection
+- Hole
 > [!TIP]
 > I am currently working on "Zombies". Its probably gonna be done in a week.
 # Credits
