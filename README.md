@@ -35,12 +35,11 @@ Heres things that will be added in the future.
 - PvZ
 - Zombies
 - Pokemon
-- Knockout
 - Bees
 - Lemonade Stand
-- That infection puddle furry thing
+- Infection
 > [!TIP]
-> I am currently working on "Knockout". Its probably gonna be done in a week.
+> I am currently working on "Zombies". Its probably gonna be done in a week.
 # Credits
 
 ***If your gonna use these give me credit for it (Eg: Script by Hihipie2ndBan)***
