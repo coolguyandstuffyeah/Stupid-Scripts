@@ -35,13 +35,12 @@ Heres things that will be added in the future.
 - PvZ
 - Zombies
 - Pokemon
-- Chloroform Cloth
+- Choke
 - Bees
 - Lemonade Stand
 - That infection puddle furry thing
-- Basically this: https://www.youtube.com/shorts/ys99kraxiE4
 > [!TIP]
-> I am currently working on none right now.
+> I am currently working on the chocking one.
 # Credits
 
 ***If your gonna use these give me credit for it (Eg: Script by Hihipie2ndBan)***
